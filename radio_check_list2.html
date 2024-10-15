@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>메뉴 선택</title>
+    <style>    
+        .container {
+            width: 300px;
+            margin: 0 auto;
+        }
+
+        .menu-section {
+            margin-bottom: 20px;
+        }
+
+        .result {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>메뉴 선택</h1>
+
+        <!-- 메뉴 선택 (라디오 버튼) -->
+        <div class="menu-section">
+            <h3>메뉴 선택</h3>
+            <input type="radio" name="menu" value="5000" id="menu1" onclick="updateMenuPrice()" checked>
+            <label for="menu1">햄버거 (5000원)</label><br>
+
+            <input type="radio" name="menu" value="6000" id="menu2" onclick="updateMenuPrice()">
+            <label for="menu2">치킨버거 (6000원)</label><br>
+
+            <input type="radio" name="menu" value="7000" id="menu3" onclick="updateMenuPrice()">
+            <label for="menu3">새우버거 (7000원)</label>
+        </div>
+
+        <!-- 추가 옵션 (체크박스) -->
+        <div class="menu-section">
+            <h3>추가 옵션</h3>
+            <input type="checkbox" value="1500" id="extra1" onclick="updateExtraPrice('extra1')">
+            <label for="extra1">추가 채소 (1500원)</label><br>
+
+            <input type="checkbox" value="1000" id="extra2" onclick="updateExtraPrice('extra2')">
+            <label for="extra2">추가 음료 (1000원)</label><br>
+
+            <input type="checkbox" value="500" id="extra3" onclick="updateExtraPrice('extra3')">
+            <label for="extra3">추가 피클 (500원)</label>
+        </div>
+
+        <!-- 사이즈 선택 (리스트박스) -->
+        <div class="menu-section" >
+            <h3>사이즈 선택</h3>
+            <select id="size" onclick="updateSizePrice()">
+                <option value="0">기본 사이즈</option>
+                <option value="1000">중간 사이즈 (+1000원)</option>
+                <option value="2000">대 사이즈 (+2000원)</option>
+            </select>
+        </div>
+
+        <hr>
+
+        <!-- 결과 표시 -->
+        <p class="result">총 금액: <span id="totPrice">5000</span>원</p>
+    </div>
+
+    <script>
+        let menuPrice=5000;
+        let extraPrice=0;
+        let sizePrice=0
+        let totalPrice=menuPrice+extraPrice+sizePrice;
+
+        function updateMenuPrice(){
+            const menu = document.querySelector('input[name="menu"]:checked');
+            menuPrice = parseInt(menu.value);
+            totalPrice=menuPrice+extraPrice+sizePrice;
+            document.getElementById('totPrice').innerText = totalPrice; 
+        }
+
+        function updateExtraPrice(extra) {           
+            const ext = document.getElementById(extra);
+            const price=ext.value;
+            if(ext.checked){
+                extraPrice += parseInt(ext.value);
+            }else{
+                extraPrice -= parseInt(ext.value);
+            }
+            totalPrice=menuPrice+extraPrice+sizePrice;
+            document.getElementById('totPrice').innerText = totalPrice;          
+        }
+
+        function updateSizePrice(){
+            const size = document.getElementById('size');
+            sizePrice = parseInt(size.value);           
+            totalPrice=menuPrice+extraPrice+sizePrice;
+            document.getElementById('totPrice').innerText = totalPrice; 
+        }
+    </script>
+</body>
+
+</html>
