@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로또 번호 생성기</title>
+<style>
+    body{
+        font-family: Arial;
+        text-align: center;
+        margin-top: 50px;
+    }
+
+    #lottoNumbers{
+        font-size: 24px;
+        margin: 20px;
+    }
+
+    .lotto-number{
+        display: inline-block;
+        width:40px;
+        height:40px;
+        line-height: 40px;
+        background-color: #f1c40f;
+        border-radius: 50%;
+        font-weight: bold;
+        margin:0 5px;
+    }
+</style>
+</head>
+<body>
+    <h1>로또 번호 생성기</h1>
+    <button id="lottoBtn">로또 번호 생성</button>
+    <script>
+        const lottoNumBtn=document.getElementById("lottoBtn");
+        let lottoNumberDiv=null;
+        lottoNumBtn.addEventListener("click", (event)=>{
+            let lotto=[];
+
+            while(true){
+                let number=Math.floor(Math.random()*45)+1;
+                let flag=false;
+                for(let num of lotto){
+                    if(num===number){
+                        flag=true;
+                        break;
+                    }
+                }
+                if(flag){
+                    continue;
+                }
+                lotto.push(number);
+                if(lotto.length===6){
+                    break;
+                }
+            }
+
+            lotto.sort((a,b)=>a-b);
+            
+            if(lottoNumberDiv!=null){
+                document.body.removeChild(lottoNumberDiv);
+            }
+            lottoNumberDiv=document.createElement("div");
+            lottoNumberDiv.id="lottoNumbers";
+            document.body.appendChild(lottoNumberDiv);
+
+            for(let num of lotto){
+                let node=document.createElement("span");
+                node.className="lotto-number";
+                node.innerText=num;
+                lottoNumberDiv.appendChild(node);
+            }
+
+        });
+    </script>
+</body>
+</html>
