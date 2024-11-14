@@ -1,0 +1,67 @@
+1 project 생성
+file-new-project 선택
+spring boot 선택
+name : 프로젝트 이름 입력
+나머지 기본으로 두고 JDK와 Java는 17버전 선택후 next
+Developer Tools에서 Spring Boot DevTools, Lombok, Spring Configuration processor 체크
+Wep에서 Spring Web선택
+Templates Engines에서 Thymleaf선택 후 Create
+
+
+2. 데이터베이스 연결
+build.gradle 파일 열어서 dependencies 옆에 edit starters 클릭
+SQL 에서 Spring Data JPA, MySQL Driver 체크
+오른쪽 데이터베이스(드럼통모양) 도구 눌러서 + 누르고 Mysql 선택후 계정정보(roor) 입력
+
+application.properties 파일 열어서 
+spring.datasource.url=jdbc:mysql://localhost:3306/shop
+spring.datasource.username=root
+spring.datasource.password=1234
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.jpa.properties.hibernate.show_sql=true
+spring.jpa.hibernate.ddl-auto=update
+추가
+
+
+src/main/java/com/프로젝트이름 밑에 data 팩키지 생성
+data 팩키지 안에 Product 클래스 생성
+data 팩키지 안에 ProductRepository 인터페이스 생성
+src/main/java/com/프로젝트이름 밑에 ProductController 생성
+
+ProductController에 ProductRepository 추가
+@Controller,@RequiredArgsConstructor 추가
+
+ProductController에 @GetMapping(value="/list")
+    		public String list(Model model) 생성
+resources-templates 밑에 list.html 생성
+
+ProductController에 @GetMapping(value="/detail/{id}")
+    public String detail(@PathVariable Integer id, Model model) 추가
+
+resources-templates 밑에 detail-list.html 생성
+
+ProductController에  @GetMapping(value="/new-product")
+		    public String newProduct()추가
+
+resources-templates 밑에 new-product.html 생성
+
+ProductController에   @PostMapping(value="/new-product")
+    public String newProduct(@RequestParam String title,
+                             @RequestParam Integer price) 추가
+
+ProductController에 @GetMapping(value="/update-product/{id}")
+    public String updataProduct(@PathVariable Integer id, Model model) 추가
+
+resources-templates 밑에 update-product.html 생성
+
+ProductController에 @PostMapping(value="/update-product/{id}")
+    public String updateProduct(@PathVariable Integer id,
+                                @RequestParam String title,
+                                @RequestParam Integer price) 추가
+
+ProductController에  @GetMapping(value="/delete-product/{id}")
+    public String deleteProduct(@PathVariable Integer id) 추가
+
+
+
+
